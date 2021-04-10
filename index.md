@@ -22,7 +22,37 @@ However, due to the inherent locality limitations of convolution operations,  it
 
 Previous researches already show that transformer shows great improvement in global modeling and have some satisfying results in image recognition tasks. However, researches also show that only use transformer in medical segmentation tasks can be disappointing. This is because transformer focus too much on long range modeling it lacks the ability to do local featuring thus lacks high resolution information.  
 
-So, a combination of U-net and transformer should overcome their respective weakness and form a method that can extract both high and low resolution information. TransUNet is therefore proposed. TransUNet is a hybrid CNN-Transformer architecture that takes advantage of both CNN's high resolution feature space and transformer's long range feature information. 
+So, a combination of U-net and transformer should overcome their respective weakness and form a method that can extract both high and low resolution information. TransUNet is therefore proposed. 
+
+## Method
+
+TransUNet is a hybrid CNN-Transformer architecture that takes advantage of both CNN's high resolution feature space and transformer's long range feature information. The overall structure of the TransUNet is shown below.
+
+![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/tranunet.jpg)
+
+### Transformer as Encoder
+
+#### Image Sequentialization
+
+The progress of image sequentialization is shown below. First of all, reshape the input image into a series of 2D patches, linearly project each patch and add position embeddings. Provide the result sequence to transformer encoder, adding a multilayer perceptron head and get the final classification result.
+
+![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/tranencoder.png)
+
+#### Patch Embedding
+
+In order to get positional information, we need to do a position embedding and combine it with patches. The formula is as follows:
+
+$$ z_0 = [x_p^1E;x_p^2E;...;x_p^NE] + E_{pos} $$
+
+Where $x_p$ is patch, $E_{pos}$ is position embedding and $E$ is embedding projection.
+
+The L-th layer output of the transformer encoder can be introduced as:
+
+$$z\dot{}_l = MSA(LN(z_{l-1}))+z_{l-1}$$
+
+$$z_l = MLP(LN(z\dot{}_{l}))+z\dot{}_{l}$$
+
+Where MSA means Multi-head Attention, MLP means Multilayer Perceptron, LN() means the layer normalization operation, $z_l$ is the encoded image presentation.
 
 
 
