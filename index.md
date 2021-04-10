@@ -22,15 +22,8 @@ However, due to the inherent locality limitations of convolution operations,  it
 
 Previous researches already show that transformer shows great improvement in global modeling and have some satisfying results in image recognition tasks. However, researches also show that only use transformer in medical segmentation tasks can be disappointing. This is because transformer focus too much on long range modeling it lacks the ability to do local featuring thus lacks high resolution information.  
 
-So, a combination of U-net and transformer should overcome their respective weakness and form a method that can extract both high and low resolution information. TransUNet is therefore proposed.
+So, a combination of U-net and transformer should overcome their respective weakness and form a method that can extract both high and low resolution information. TransUNet is therefore proposed. TransUNet is a hybrid CNN-Transformer architecture that takes advantage of both CNN's high resolution feature space and transformer's long range feature information. 
 
 
 
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
