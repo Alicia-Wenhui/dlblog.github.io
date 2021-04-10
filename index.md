@@ -67,6 +67,16 @@ $$z_l = MLP(LN(z\dot{}_{l}))+z\dot{}_{l}$$
 
 Where MSA means Multi-head Attention, MLP means Multilayer Perceptron, LN() means the layer normalization operation, $z_l$ is the encoded image presentation.
 
+### TransUNet
+
+In order to get the final result, we need to return the decoded feature presentations to the original spatial size to output the result image. If we use a transformer encoder and an easy upsampling, the feature space size should be transformed from $\frac{HW}{P^2}$ to $\frac{H}{P}\times \frac{W}{P}$. In this way using a simple $1\times1$ convolution then upsampling the feature map to $H\times W$ to have the original resolution.
+
+However, because of the weakness o f transformer that discussed earlier, the generated $\frac{H}{P}\times \frac{W}{P}$ is a much more smaller resolution compared to the original $H \times W$ resolution, so the result image would be a low resolution image that lacks some specific details. In order to obtain more high resolution information, TransUNet adapting a combined CNN-Transformer encoder.
+
+#### CNN-Transformer Hybrid Encoder
+
+Before the input image goes into transformer, it firstly goes into CNN to retrieve the hidden feature and linear projection. This result of the CNN feature map then goes to transformer to do patch embedding. 
+
 
 
 
