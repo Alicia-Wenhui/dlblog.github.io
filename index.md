@@ -12,7 +12,11 @@ Wenhui Wang did
 
 ## Introduction
 
+In the field of medical image segmentation, U-net[1] is one of the most used approaches. As the image shown below, U-net is a U-shape network that the left part function as an encoder doing feature extraction and the right part function as a decoder doing upsampling.
 
+![unet](https://github.com/Alicia-Wenhui/dlblog.github.io/blob/gh-pages/img/unet.png)
+
+However, 
 
 
 
