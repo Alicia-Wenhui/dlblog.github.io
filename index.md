@@ -16,6 +16,8 @@ In the field of medical image segmentation, U-net[1] is one of the most used app
 
 ![unet](https://github.com/Alicia-Wenhui/dlblog.github.io/blob/gh-pages/img/unet.png)
 
+<img src="/img/unet.png" alt="U-net model" align=center/>
+
 However, 
 
 
