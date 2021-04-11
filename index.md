@@ -85,13 +85,13 @@ Before the input image goes into transformer, it firstly goes into CNN to retrie
 
 DSC means Dice similarity Coefficient, it is a commonly used evaluation metric for image segmentation tasks. DSC measures the similarity of two samples. It's formula is as follows:
 
-$$Dice(P,T)=\frac{|P_1\and{T_1}|}{(|P_1|+|T_2|)/2}$$
+$$Dice(P,T)=\frac{|P_1\Lambda{T_1}|}{(|P_1|+|T_2|)/2}$$
 
 ##### HD
 
 One big weakness for DSC is that it focus on internal padding and lacks sensitivity for boundary features. Hausdorff Distance(HD), it is also a widely used metric for segmentation tasks and it can be used as a supplement for DSC to portray boundary features. Hausdorff Distance measures the distance of subsets in a spatial space. The formula for HD is as follows:
 
-$$d_H(X,Y)=max\{ \mathop{sup}_{x\in X}{inf}_{y\in Y}d(x,y),sup_{y\in Y}inf_{x\in X}d(x,y) \}$$
+$$d_H(X,Y)=max\{ \mathop{sup}_{x\in X}\mathop{inf}_{y\in Y}d(x,y),\mathop{sup}_{y\in Y}\mathop{inf}_{x\in X}d(x,y) \}$$
 
 Where $sup()$ means supremum and $inf()$ means infimum.
 
