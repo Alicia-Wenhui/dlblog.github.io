@@ -77,6 +77,118 @@ However, because of the weakness o f transformer that discussed earlier, the gen
 
 Before the input image goes into transformer, it firstly goes into CNN to retrieve the hidden feature and linear projection. This result of the CNN feature map then goes to transformer to do patch embedding. 
 
+### Experiments
+
+#### Evaluation Metrics
+
+##### DSC
+
+DSC means Dice similarity Coefficient, it is a commonly used evaluation metric for image segmentation tasks. DSC measures the similarity of two samples. It's formula is as follows:
+
+$$Dice(P,T)=\frac{|P_1\and T_1|}{(|P_1|+|T_2|)/2}$$
+
+##### HD
+
+One big weakness for DSC is that it focus on internal padding and lacks sensitivity for boundary features. Hausdorff Distance(HD), it is also a widely used metric for segmentation tasks and it can be used as a supplement for DSC to portray boundary features. Hausdorff Distance measures the distance of subsets in a spatial space. The formula for HD is as follows:
+
+$$d_H(X,Y)=max\{ \mathop{sup}_{x\in X}{inf}_{y\in Y}d(x,y),sup_{y\in Y}inf_{x\in X}d(x,y) \}$$
+
+Where $sup()$ means supremum and $inf()$ means infimum.
+
+In this task we use Hausdorff_95(95% HD), which is the 95th percentile of the distances between boundary points in X and Y. The reason for using it instead of directly using HD is that it can eliminate the impact of a very small subset of the outliers.
+
+#### Abdomen Dataset
+
+We firstly use the Abdomen dataset which was used in this paper. We use the original code to train the model directly and then use the trained model to test on test dataset. The result is shown in Table below. We give the author's result and our own result.
+
+| TransUNet | DSC   | HD    | Aorta | Gallbladder | Kidney(L) | Kidney(R) | Liver | Pancreas | Spleen | Stomach |
+| --------- | ----- | ----- | ----- | ----------- | --------- | --------- | ----- | -------- | ------ | ------- |
+| Original  | 77.48 | 31.69 | 87.23 | 63.13       | 81.87     | 77.02     | 94.08 | 55.86    | 85.08  | 75.62   |
+| Our's     | 77.21 | 31.27 | 87.01 | 64.75       | 80.18     | 76.40     | 93.86 | 56.36    | 84.83  | 74.32   |
+
+We got quite similar result as the author's result in this paper.
+
+#### Cervix Dataset
+
+Then we used a new dataset which consists of planning CT scans of cervical cancer patients that were in varying stages of the disease but that were all eligible for radiotherapy. The CT scans consist of between 148 and 241 axial slices (depending on body size) of 512x512 voxels. The delineations were used in clinical practice and are provided for four structures that have all been renamed consistently: (1) bladder, (2) uterus, (3) rectum, (4) small bowel.
+
+Since the author did not provide the code to pre-processing the dataset into required format, we write the code ourselves.
+
+```python
+import os
+import numpy as np
+import nibabel as nib
+import imageio
+import matplotlib
+from matplotlib import pylab as plt
+import h5py
+
+def read_niifile(nii_file_path):
+    img = nib.load(nii_file_path)
+    img_fdata = img.get_fdata()
+    return img_fdata
+
+
+def save_fig(file_path):
+    for i in range(1, 31):
+        img_path = file_path + str(i) + '.nii'
+        label_path = file_path + str(i) + '-mask.nii'  
+    		img_data = read_niifile(img_path)
+    		img_data = np.array(img_data)
+    		img_data = np.clip(img_data, a_min=-125, a_max=275)
+    		max = np.max(img_data)
+    		min = np.min(img_data)
+    		mean = np.mean(img_data)
+    		std = np.std(img_data)
+
+    		img_data = (img_data - min) / (max - min)
+    		label_data = read_niifile(label_path)
+    		label_data = np.array(label_data)
+
+    		if i > 5:
+        		(x, y, z) = img_data.shape
+        		for k in range(z):
+
+            		save_path = file_path + 'img/train/case' + '{0:04d}'.format(i) + '_slice' + '{0:03d}'.format(k) + '.npz'
+            		print(save_path)
+
+            		img = img_data[:, :, k]
+            		img = np.array(img)
+            		# img = np.clip(img, a_min=-125, a_max=275)
+
+            		label = label_data[:, :, k]
+            		label = np.array(label)
+
+            		np.savez(save_path, image=img, label=label)
+
+        		# imageio.imwrite(os.path.join(savepath, '{}.png'.format(k)), img)
+    		else:
+        		h5_file_path = file_path + 'img/test/case' + '{0:04d}'.format(i) + '.npy.h5'
+        		with h5py.File(h5_file_path, 'w') as f:
+            		img_data = img_data.transpose(2, 0, 1)
+            		label_data = label_data.transpose(2, 0, 1)
+            		f.create_dataset('image', data=img_data)
+            		f.create_dataset('label', data=label_data)
+                
+def extract(file_path):
+    save_fig(file_path)
+
+if __name__ == '__main__':
+    file_path = './np/train/'
+    extract(file_path)
+```
+
+We use the same hyperparameters in original code and then save two models, one is trained 20 epochs and one is trained 100 epochs. The test results are shown below.
+
+| TransUNet          | DSC   | HD    | bladder | uterus | rectum | small bowel |
+| ------------------ | ----- | ----- | ------- | ------ | ------ | ----------- |
+| Result(20 epochs)  | 59.16 | 17.56 | 73.84   | 56.06  | 62.36  | 44.38       |
+| Result(100 epochs) | 66.99 | 15.61 | 85.88   | 66.63  | 74.00  | 41.45       |
+
+Here is an example of the predicted mask.
+
+![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/predict.png)
+
 
 
 
