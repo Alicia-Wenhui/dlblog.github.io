@@ -85,7 +85,7 @@ Before the input image goes into transformer, it firstly goes into CNN to retrie
 
 DSC means Dice similarity Coefficient, it is a commonly used evaluation metric for image segmentation tasks. DSC measures the similarity of two samples. It's formula is as follows:
 
-$$Dice(P,T)=\frac{|P_1\and T_1|}{(|P_1|+|T_2|)/2}$$
+$$Dice(P,T)=\frac{|P_1\and{T_1}|}{(|P_1|+|T_2|)/2}$$
 
 ##### HD
 
