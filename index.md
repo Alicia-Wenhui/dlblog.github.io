@@ -19,9 +19,7 @@ This blog is for CS4240 Deep Learning reproducibility project. Created by:
 
 **Wenhui Wang** (student ID: 5279267, email: w.wang-28@student.tudelft.nl)
 
-Zhen Wang did
 
-Wenhui Wang did
 
 ## Introduction
 
@@ -190,5 +188,5 @@ Here is an example of the predicted mask.
 ![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/predict.png)
 
 
-
+code URL: [Code](https://github.com/Alicia-Wenhui/dlblog.github.io/tree/gh-pages/TransUNet)
 
