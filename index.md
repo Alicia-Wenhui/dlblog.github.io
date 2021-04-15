@@ -24,6 +24,8 @@ Wenhui Wang reproduce and test with the original dataset; Zhen Wang implement an
 
 ## Introduction
 
+Our reproducibility project reproduce the paper *TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation*([Paper](https://arxiv.org/pdf/2102.04306.pdf)). This paper introduces TransUNet, which is a novel method that combines the advantages of Transformer and U-net and avoid their seperate disadvantages, and achieves state-of-the-art performance on medical image segmentation tasks. We try to reproduce their work on this paper and try to implement a new dataset.
+
 Medical image segmentation is one of the hottest research task in the field of deep learning. Medical images have their unique characteristics: most medical images have vague borders and complicated lines, so it need high resolution informations to do precise   segmentation; the internal structures and organs of human body is relatively organized, so for object recognition we only need low resolution information. That is, a great medical image segmentation method should contain both high resolution information and low resolution information.
 
 In the field of medical image segmentation, U-net is one of the most used approaches. As the image shown below, U-net is a U-shape CNN network that the left part function as an encoder doing feature extraction and the right part function as a decoder doing upsampling. U-net also uses skip connection for each stage that connect the upsampling result with the output of the same resolution in the encoder, and use it as the next input of the decoder. One advantage of this structure is that it allows the output map with more low-level features and it allows a feature combination of different stages so that it's more suitable for deep supervision and contain more high resolution information. 
@@ -99,7 +101,9 @@ In this task we use Hausdorff_95(95% HD), which is the 95th percentile of the di
 
 #### Abdomen Dataset
 
-We firstly use the Abdomen dataset which was used in this paper. We use the original code to train the model and then use the trained model to test on test dataset. The result is shown in Table below. We give the author's result and our own result.
+We firstly use the Abdomen dataset which was used in this paper. We reproduce the original code to train the model and then use the trained model to test on test dataset. We use a GTX 2060Super for training, set the batch size as 24 and trained for 100 epochs. 
+
+We trained for approximately 1.5 days and the test result is shown in Table below. We give the author's result and our own result for comparison.
 
 | TransUNet | DSC   | HD    | Aorta | Gallbladder | Kidney(L) | Kidney(R) | Liver | Pancreas | Spleen | Stomach |
 | --------- | ----- | ----- | ----- | ----------- | --------- | --------- | ----- | -------- | ------ | ------- |
@@ -182,7 +186,7 @@ if __name__ == '__main__':
     extract(file_path)
 ```
 
-We use the same hyperparameters in original code and then save two models, one is trained 20 epochs and one is trained 100 epochs. The test results are shown below.
+We use the same hyperparameters in original code and then save two models, one is trained 20 epochs and one is trained 100 epochs. We also use a GTX 2060Super for training, set the batch size as 24. We trained for approximately 2 days and the test results are shown below.
 
 | TransUNet          | DSC   | HD    | bladder | uterus | rectum | small bowel |
 | ------------------ | ----- | ----- | ------- | ------ | ------ | ----------- |
@@ -192,6 +196,7 @@ We use the same hyperparameters in original code and then save two models, one i
 Here is an example of the predicted mask comparing to the original one.
 
 ![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/res.png)
+
 
 
 code URL: [Code](https://github.com/Alicia-Wenhui/dlblog.github.io/tree/gh-pages/TransUNet)
