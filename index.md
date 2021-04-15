@@ -112,7 +112,9 @@ We got quite similar result as the author's result in this paper.
 
 Then we used a new dataset which consists of planning CT scans of cervical cancer patients that were in varying stages of the disease but that were all eligible for radiotherapy. The cervix images were acquired from CT scanners at the Erasmus Medical Center (EMC) Cancer Institute in Rotterdam. The images are tagged artificially and the labels are checked by professionals. 
 
-The CT scans consist of between 148 and 241 axial slices (depending on body size) of 512x512 voxels. The delineations were used in clinical practice and are provided for four structures that have all been renamed consistently: (1) bladder, (2) uterus, (3) rectum, (4) small bowel.
+The CT scans consist of between 148 and 241 axial slices (depending on body size) of 512x512 voxels. The delineations were used in clinical practice and are provided for four structures that have all been renamed consistently: (1) bladder, (2) uterus, (3) rectum, (4) small bowel. Here is a example of these 4 organs.
+
+![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/data.jpg)
 
 Since the author did not provide the code to pre-processing the dataset into required format, we write the code ourselves.
 
