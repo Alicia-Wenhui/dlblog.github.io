@@ -183,9 +183,9 @@ We use the same hyperparameters in original code and then save two models, one i
 | Result(20 epochs)  | 59.16 | 17.56 | 73.84   | 56.06  | 62.36  | 44.38       |
 | Result(100 epochs) | 66.99 | 15.61 | 85.88   | 66.63  | 74.00  | 41.45       |
 
-Here is an example of the predicted mask.
+Here is an example of the predicted mask comparing to the original one.
 
-![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/predict.png)
+![unet](https://alicia-wenhui.github.io/dlblog.github.io/img/res.png)
 
 
 code URL: [Code](https://github.com/Alicia-Wenhui/dlblog.github.io/tree/gh-pages/TransUNet)
