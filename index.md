@@ -19,6 +19,7 @@ This blog is for CS4240 Deep Learning reproducibility project. Created by:
 
 **Wenhui Wang** (student ID: 5279267, email: w.wang-28@student.tudelft.nl)
 
+Wenhui Wang reproduce and test with the original dataset; Zhen Wang implement and test a new dataset. Both Wenhui Wang and Zhen Wang wrote the blog.
 
 
 ## Introduction
@@ -95,9 +96,10 @@ Where $sup()$ means supremum and $inf()$ means infimum.
 
 In this task we use Hausdorff_95(95% HD), which is the 95th percentile of the distances between boundary points in X and Y. The reason for using it instead of directly using HD is that it can eliminate the impact of a very small subset of the outliers.
 
+
 #### Abdomen Dataset
 
-We firstly use the Abdomen dataset which was used in this paper. We use the original code to train the model directly and then use the trained model to test on test dataset. The result is shown in Table below. We give the author's result and our own result.
+We firstly use the Abdomen dataset which was used in this paper. We use the original code to train the model and then use the trained model to test on test dataset. The result is shown in Table below. We give the author's result and our own result.
 
 | TransUNet | DSC   | HD    | Aorta | Gallbladder | Kidney(L) | Kidney(R) | Liver | Pancreas | Spleen | Stomach |
 | --------- | ----- | ----- | ----- | ----------- | --------- | --------- | ----- | -------- | ------ | ------- |
@@ -108,7 +110,9 @@ We got quite similar result as the author's result in this paper.
 
 #### Cervix Dataset
 
-Then we used a new dataset which consists of planning CT scans of cervical cancer patients that were in varying stages of the disease but that were all eligible for radiotherapy. The CT scans consist of between 148 and 241 axial slices (depending on body size) of 512x512 voxels. The delineations were used in clinical practice and are provided for four structures that have all been renamed consistently: (1) bladder, (2) uterus, (3) rectum, (4) small bowel.
+Then we used a new dataset which consists of planning CT scans of cervical cancer patients that were in varying stages of the disease but that were all eligible for radiotherapy. The cervix images were acquired from CT scanners at the Erasmus Medical Center (EMC) Cancer Institute in Rotterdam. The images are tagged artificially and the labels are checked by professionals. 
+
+The CT scans consist of between 148 and 241 axial slices (depending on body size) of 512x512 voxels. The delineations were used in clinical practice and are provided for four structures that have all been renamed consistently: (1) bladder, (2) uterus, (3) rectum, (4) small bowel.
 
 Since the author did not provide the code to pre-processing the dataset into required format, we write the code ourselves.
 
